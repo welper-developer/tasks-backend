@@ -37,6 +37,12 @@ pipeline {
             steps{
                 deploy adapters: [tomcat8(credentialsId: 'Tomcat_login', path: '', url: 'http://tomcat8:8080')], contextPath: 'tasks-backend', war: 'target/tasks-backend.war'
             }
-        }    
+        }   
+
+        stage ('@@@@@@@@@@@@@@@@@@@@@@@@ API Test @@@@@@@@@@@@@@@@@@@@@@@@'){
+            steps{
+                git 'https://github.com/wcaquino/tasks-api-test'
+            }
+        } 
     }
 }
