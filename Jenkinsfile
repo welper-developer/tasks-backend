@@ -41,8 +41,10 @@ pipeline {
 
         stage ('@@@@@@@@@@@@@@@@@@@@@@@@ API Test @@@@@@@@@@@@@@@@@@@@@@@@'){
             steps{
-                git 'https://github.com/wcaquino/tasks-api-test'
-                sh 'mvn test'
+                dir('api-test'){
+                    git 'https://github.com/wcaquino/tasks-api-test'
+                    sh 'mvn compile'
+                }                
             }
         } 
     }
