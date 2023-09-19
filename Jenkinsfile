@@ -37,5 +37,6 @@ pipeline {
             steps{
                 deploy adapters: [tomcat8(credentialsId: 'Tomcat_login', path: '', url: 'http://tomcat8:8001')], contextPath: 'tasks-backend', war: 'target/tasks-backend.war'
             }
+        }    
     }
 }
