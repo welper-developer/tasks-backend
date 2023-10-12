@@ -24,7 +24,7 @@ pipeline {
                     }
             }
         }
-        stage ('######################## Quality Gate ########################'){
+        stage (' Quality Gate '){
             steps {
                 sleep(5)
                 timeout( time: 1, unit: 'MINUTES'){
@@ -33,13 +33,22 @@ pipeline {
             }
         } 
 
-        stage ('######################## Deploy Backend ########################'){
+        stage (' Deploy Backend '){
             steps{
                 deploy adapters: [tomcat8(credentialsId: 'Tomcat_login', path: '', url: 'http://tomcat8:8080')], contextPath: 'tasks-backend', war: 'target/tasks-backend.war'
             }
         }   
 
-        stage ('######################## Deploy Frontend ########################'){
+        // stage (' API Test '){
+        //     steps{
+        //         dir('api-test'){
+        //             git 'https://github.com/wcaquino/tasks-api-test'
+        //             sh 'mvn test'
+        //         }                
+        //     }
+        // } 
+
+        stage (' Deploy Frontend '){
             steps{
                 dir('front-end'){
                     git 'https://github.com/wcaquino/tasks-frontend'
@@ -50,14 +59,16 @@ pipeline {
                 }               
             }
         }  
-        // stage ('@@@@@@@@@@@@@@@@@@@@@@@@ API Test @@@@@@@@@@@@@@@@@@@@@@@@'){
-        //     steps{
-        //         dir('api-test'){
-        //             git 'https://github.com/wcaquino/tasks-api-test'
-        //             sh 'mvn test'
-        //         }                
-        //     }
-        // } 
+
+        stage (' Functional Test '){
+            steps{
+                dir('functional-test'){
+                    git 'https://github.com/wcaquino/tasks-functional-test'
+                    sh 'mvn test'
+                }                
+            }
+        } 
+        
     }
 
 
