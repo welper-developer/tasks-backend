@@ -39,13 +39,28 @@ pipeline {
             }
         }   
 
-        stage ('@@@@@@@@@@@@@@@@@@@@@@@@ API Test @@@@@@@@@@@@@@@@@@@@@@@@'){
+        stage ('######################## Deploy Frontend ########################'){
             steps{
-                dir('api-test'){
-                    git 'https://github.com/wcaquino/tasks-api-test'
-                    sh 'mvn test'
-                }                
+                dir('front-end'){
+                    git 'https://github.com/wcaquino/tasks-frontend'
+                    sh 'mvn clean package'
+                    deploy adapters: [tomcat8(credentialsId: 'Tomcat_login', path: '', url: 'http://tomcat8:8080')], 
+                    contextPath: 'tasks', 
+                    war: 'target/tasks.war'
+                }               
             }
-        } 
+        }  
+        // stage ('@@@@@@@@@@@@@@@@@@@@@@@@ API Test @@@@@@@@@@@@@@@@@@@@@@@@'){
+        //     steps{
+        //         dir('api-test'){
+        //             git 'https://github.com/wcaquino/tasks-api-test'
+        //             sh 'mvn test'
+        //         }                
+        //     }
+        // } 
     }
+
+
+
+    
 }
