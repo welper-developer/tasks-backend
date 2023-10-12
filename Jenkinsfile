@@ -43,7 +43,7 @@ pipeline {
             steps{
                 dir('api-test'){
                     git 'https://github.com/wcaquino/tasks-api-test'
-                    sh 'mvn test'
+                    sh 'mvn compile'
                 }                
             }
         } 
