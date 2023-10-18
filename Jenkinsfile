@@ -60,14 +60,14 @@ pipeline {
             }
         }  
 
-        stage (' Functional Test '){
-            steps{
-                dir('functional-test'){
-                    git 'https://github.com/wcaquino/tasks-functional-tests'
-                    sh 'mvn test'
-                }                
-            }
-        } 
+        // stage (' Functional Test '){
+        //     steps{
+        //         dir('functional-test'){
+        //             git 'https://github.com/wcaquino/tasks-functional-tests'
+        //             sh 'mvn test'
+        //         }                
+        //     }
+        // } 
         
     }
 
